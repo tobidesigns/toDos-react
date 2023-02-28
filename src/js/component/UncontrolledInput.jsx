@@ -8,6 +8,12 @@ export default function UncontrolledInput (){
             console.log(toDos)
         }
 
+        const deleteTodo = (index) => {
+            const newTodos = [...toDos];
+            newTodos.splice(index, 1);
+            myToDos(newTodos);
+          };
+
     const InputChange = (event) => {
         setMyText(event.target.value);
       };
@@ -16,7 +22,12 @@ export default function UncontrolledInput (){
     <h1>Uncontrolled Input</h1>
     <input value={myText} onChange={InputChange} />
     <button onClick={newTodos}>Save</button>
-    {toDos.map((data, index)=>(<h1 key={index} >{data} </h1> ))}
+    {toDos.map((data, index) => (
+        <div key={index}>
+          <h1>{data}</h1>
+          <button onClick={() => deleteTodo(index)}>Delete</button>
+        </div>
+      ))}
     </>
-    
-)}
+  );
+}

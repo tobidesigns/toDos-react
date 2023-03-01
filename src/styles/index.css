@@ -1,4 +1,52 @@
-
+.toDosMain{
+    margin: 150px;
+  padding: 30px;
+  list-style: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+  .tasks {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+  }
+  .deletebtn {
+        background-color: #fff;
+        color: #007aff;
+        border: 2px solid #007aff;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-left: 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+  }
+  .addedTask {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  .saveTodos {
+    background-color: #fff;
+  color: #007aff;
+  border: 2px solid #007aff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  }
 /* 
 
     You can write your own styles here...

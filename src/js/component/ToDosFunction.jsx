@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-export default function UncontrolledInput (){
+export default function ToDosFunction (){
     const [toDos, myToDos] = useState([]);
-    const [myText, setMyText] = useState('');
+    const [myText, setMyText] = useState('No tasks, add a task');
     console.log('render');
     const newTodos = () => {
             myToDos([...toDos, myText.trim()]);
@@ -18,16 +18,20 @@ export default function UncontrolledInput (){
         setMyText(event.target.value);
       };
 
-    return(<>
-    <h1>Uncontrolled Input</h1>
-    <input value={myText} onChange={InputChange} />
-    <button onClick={newTodos}>Save</button>
-    {toDos.map((data, index) => (
+    return(<div className="toDosMain">
+    <h1>To Dos List</h1>
+    <input className="addedTask" value={myText} onChange={InputChange} />
+    <ul>
+      {toDos.map((data, index) => (
         <div key={index}>
+          <li className="tasks">
           <h1>{data}</h1>
-          <button onClick={() => deleteTodo(index)}>Delete</button>
+          <button className="deletebtn" onClick={() => deleteTodo(index)}>Delete</button>
+          </li>
         </div>
       ))}
-    </>
+    </ul>
+    <button className="saveTodos" onClick={newTodos}>Save</button>
+    </div>
   );
 }

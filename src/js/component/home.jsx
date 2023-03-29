@@ -1,34 +1,36 @@
-import React, {useState} from "react";
-
-fetch('https://assets.breatheco.de/apis/fake/todos/user/tobiraheem')
-  .then(response => response.json())
-  .then(data => {data = [...data, 'testing'];
-console.log(data); return data}
-  ).then(moreData => {moreData = [...moreData, 'i think this works but why?']; console.log(moreData)})
-  .catch(error => console.log('error'));
-
-  console.log("================")
-  console.log("================")
-  console.log("================")
-
-  fetch('https://assets.breatheco.de/apis/fake/todos/user/tobiraheem')
-  .then(response => (response.json()).then(data => console.log(data))).catch(console.log("error"))  
-
+import React, {useState, useEffect} from "react";
 
 const Home = () => {
-  const [toDos, myToDos] = useState([]);
+  const [toDos, setToDos] = useState([]);
   const [myText, setMyText] = useState('');
   const [hoverIndex, setHoverIndex] = useState(-1);
   console.log('render');
+
+  useEffect(() => {
+    console.log('rendering from useEffect')
+    fetch('https://assets.breatheco.de/apis/fake/todos/user/tobiraheem').then(res => res.json()).then(data => setToDos(data)).catch(error => console.log('error: ', error))
+  },[])
+  
   const newTodos = () => {
-    myToDos([...toDos, myText.trim()]);
-    console.log(toDos)
+    const updatedTodos = [...toDos, myText.trim()];
+    setToDos(updatedTodos);
+    fetch('https://assets.breatheco.de/apis/fake//todos/user/tobiraheem',{
+      method: 'PUT',
+      mode: 'cors', 
+      body: JSON.stringify(updatedTodos),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      if (!res.ok) throw Error(res.statusText);
+      return res.json();
+    })
+    .then(response => console.log('Success:', response))
+    .catch(error => console.error(error));
   }
 
   const deleteTodo = (index) => {
-    const newTodos = [...toDos];
-    newTodos.splice(index, 1);
-    myToDos(newTodos);
+    setToDos(toDos.filter(el => el.index != event.target.index))
   };
 
   const InputChange = (event) => {
@@ -48,10 +50,10 @@ const Home = () => {
       <h1>To Dos List</h1>
       <input className="addedTask" value={myText} onChange={InputChange} placeholder={myText === '' ? 'no task added' : ''}/>
       <ul>
-        {toDos.map((data, index) => (
+        {toDos && toDos.map((data, index) => (
           <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave}>
             <li className="tasks">
-              <h1>{data}</h1>
+              <h1>{data.label}</h1>
               {hoverIndex === index ? <button className="deletebtn" onClick={() => deleteTodo(index)}>Delete</button> : null}
             </li>
           </div>
